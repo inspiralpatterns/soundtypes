@@ -12,6 +12,7 @@ import librosa
 
 CLUSTERING_ALGO = KMeans
 
+
 def spectral_flux (M):
     flux = []
     for i in range (M.shape[1] - 1):
@@ -20,7 +21,8 @@ def spectral_flux (M):
     if (np.max(flux)):
         flux /= np.max(flux)                                   
     return np.array(flux)
-    
+
+
 def find_peaks (data, width):
     peaks = [0]
     prev  = 0
@@ -34,7 +36,8 @@ def find_peaks (data, width):
                 prev = pos
             
     return np.array(peaks), data[delay:]
-    
+
+
 def fade_segment (segment, ms, sr):
     samples = int ((ms / 1000) * sr)
     if (samples * 2 >= len(segment)):
@@ -44,13 +47,13 @@ def fade_segment (segment, ms, sr):
     segment[0:samples] *= ramp_up
     segment[-samples:] *= ramp_dw
     return segment
-    
+
+
 def get_segments (y, sr, frame_size, hop_size, fade_ms, width):
-    M = np.abs (librosa.spectrum.stft(y=y, n_fft=frame_size, 
-                                        hop_length=hop_size))
+    M = np.abs(librosa.spectrum.stft(y=y, n_fft=frame_size, hop_length=hop_size))
     
     flux = spectral_flux (M)
-    onsets, smoothed_flux = find_peaks (flux, width)                              
+    onsets, smoothed_flux = find_peaks(flux, width)
 
     segments = []
     for i in range (1, len(onsets)):
@@ -59,7 +62,8 @@ def get_segments (y, sr, frame_size, hop_size, fade_ms, width):
         segments.append (chunk)
 
     return (segments, onsets, smoothed_flux)
-    
+
+
 def make_soundtypes (C, ratio):
     n_clusters = int(C.shape[0] * ratio)
     cl_algo = CLUSTERING_ALGO (n_clusters).fit (C)
