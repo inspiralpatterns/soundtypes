@@ -34,21 +34,18 @@ def compute_spectrogram(audiofile, no_mels, fft_size, hop_size, duration):
     # log-compressed version
     S = librosa.power_to_db(S, ref=np.max)
 
-    # maybe adding dynamic range compression stage? (Dieleman, 2014)
-    # (C = amount of compression, set by heuristics)
-    # C = 10000
-    # S = np.log(1 + C*S)
-
     # get spectrogram matrix dimensions (to be used in the convnet)
     dims = S.shape
 
     # plot the spectrogram
+
     plt.figure(figsize=[12, 4])
     librosa.display.specshow(S, sr=sr, y_axis='mel', x_axis='time')
     plt.colorbar(format='%+2.0f dB')
     plt.title('Mel spectrogram')
     plt.tight_layout()
     plt.show()
+
 
     return S, dims
 

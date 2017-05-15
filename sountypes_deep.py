@@ -54,5 +54,6 @@ if __name__ == "__main__":
 
 
 # to do
-# 1. create minibatch (?)
+# 1. create minibatch for spectrograms (?)
 # 2. allow for training every 10 secs or so when a new spectogram is computed
+# 3. batch normalization, removing biases and dropout?
