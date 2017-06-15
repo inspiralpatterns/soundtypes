@@ -1,2 +1,17 @@
 generations
 generated_sound.wav
+BbClarinet
+dtu-server
+Flute
+Piano
+samples
+venv
+clarinet_notes_dataset.npz
+piano_dataset.npz
+piano_notes_dataset.npz
+sine_dataset.npz
+sineSpectra_dataset.npz
+spectra_dataset.npz
+flute_notes_dataset.npz
+
+
